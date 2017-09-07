@@ -70,6 +70,23 @@
             this.component.rr = this.model.BuildModel(this.r, trainSet, valSet);
             MessageBox.Show("Finished: Model built");
             this.component.modelCreated = true;
+
+            string modelType = "";
+            if (this.component.rr.Model is EnsembleNeuralNetRegression)
+            {
+                modelType = "Ensemble Neural Net";
+            }
+            else if (this.component.rr.Model is RandomForestRegression)
+            {
+                modelType = "Random Forest";
+            }
+            else if (this.component.rr.Model is KrigingRegression)
+            {
+                modelType = "Kriging";
+            }
+
+            string nuisanceParam = this.component.rr.Model.Parameter.ToString();
+
         }
     }
 }
