@@ -14,15 +14,16 @@
 
         public TILDAComponentAttributes(IGH_Component component) : base(component)
         {
-            this.MyComponent = component;
+            this.MyComponent = (TILDAComponent) component;
         }
 
+
         [STAThread]
-        public override GH_ObjectResponse RespondToMouseDoubleClick(GH_Canvas sender, GH_CanvasMouseEvent e)
+        public override Grasshopper.GUI.Canvas.GH_ObjectResponse RespondToMouseDoubleClick(Grasshopper.GUI.Canvas.GH_Canvas sender, Grasshopper.GUI.GH_CanvasMouseEvent e)
         {
             this.problem = new TILDA.ProblemBuilder(this.MyComponent);
             this.problem.Start();
-            Instances.get_ActiveCanvas().get_Document().NewSolution(true);
+            Grasshopper.Instances.ActiveCanvas.Document.NewSolution(true);
             this.MyComponent.modelCreated = true;
             return base.RespondToMouseDoubleClick(sender, e);
         }

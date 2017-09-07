@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
+<Project ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
   <PropertyGroup>
     <ProjectType>local</ProjectType>
     <ProjectVersion>7.10.377</ProjectVersion>
@@ -8,7 +8,8 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <AssemblyName>TILDA</AssemblyName>
     <OutputType>Library</OutputType>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -19,6 +20,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -28,11 +30,15 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <Reference Include="AlgLib">
       <HintPath>Dependencies\AlgLib.dll</HintPath>
+    </Reference>
+    <Reference Include="DSECommon">
+      <HintPath>..\gh-design-space-exploration\DSECommon\bin\Debug\DSECommon.dll</HintPath>
     </Reference>
     <Reference Include="GH_IO">
       <HintPath>..\..\Program Files\grasshopper_0.9.76.0\GH_IO.dll</HintPath>
@@ -55,15 +61,12 @@
       <HintPath>Dependencies\MathNet.Numerics.dll</HintPath>
     </Reference>
     <Reference Include="System" />
-    <Compile Include="AssemblyInfo.cs" />
     <Compile Include="Global.cs" />
     <Compile Include="TILDA\ProblemBuilder.cs" />
     <Compile Include="TILDA\Properties\Resources.cs" />
     <Compile Include="TILDA\TILDAComponent.cs" />
     <Compile Include="TILDA\TILDAComponentAttributes.cs" />
     <Compile Include="TILDA\TILDAInfo.cs" />
-    <Compile Include="SpecialLinkedAttributes.cs" />
-    <Compile Include="SpecialComponent.cs" />
     <EmbeddedResource Include="TILDA.Properties.Resources.resources" />
     <Reference Include="zlib.net">
       <HintPath>Dependencies\zlib.net.dll</HintPath>
