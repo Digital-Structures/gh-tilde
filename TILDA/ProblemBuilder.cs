@@ -24,7 +24,7 @@
         public double Predict(List<double> Features)
         {
             Observation test = new Observation(Features, 0.0);
-            return this.rr.Model.Predict(test);
+            return this.component.rr.Model.Predict(test);
         }
 
         public void Start()
@@ -71,21 +71,21 @@
             MessageBox.Show("Finished: Model built");
             this.component.modelCreated = true;
 
-            string modelType = "";
+       
             if (this.component.rr.Model is EnsembleNeuralNetRegression)
             {
-                modelType = "Ensemble Neural Net";
+                this.component.modelType = "Ensemble Neural Net";
             }
             else if (this.component.rr.Model is RandomForestRegression)
             {
-                modelType = "Random Forest";
+                this.component.modelType = "Random Forest";
             }
             else if (this.component.rr.Model is KrigingRegression)
             {
-                modelType = "Kriging";
+                this.component.modelType = "Kriging";
             }
 
-            string nuisanceParam = this.component.rr.Model.Parameter.ToString();
+            this.component.modelParam = (double) this.component.rr.Model.Parameter;
 
         }
     }
