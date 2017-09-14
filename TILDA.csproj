@@ -53,9 +53,6 @@
     <Reference Include="netDxf">
       <HintPath>Dependencies\netDxf.dll</HintPath>
     </Reference>
-    <Reference Include="StructureEngineCS">
-      <HintPath>Dependencies\StructureEngineCS.dll</HintPath>
-    </Reference>
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="MathNet.Numerics">
@@ -85,7 +82,19 @@
   <ItemGroup>
     <None Include="Resources\Sampler1.png" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Code\PhD\DesignTool\StructureEngine.csproj">
+      <Project>{a5b0a166-35ff-4aff-8a85-c6beb305aa83}</Project>
+      <Name>StructureEngine</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <PostBuildEvent>MOVE /Y "$(TargetPath)" "$(TargetDir)$(ProjectName).gha" &amp;&amp; XCOPY /Y /F "$(TargetDir)*" "$(ProjectDir)..\Output\"</PostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartAction>Program</StartAction>
+    <StartProgram>$(RHINO)</StartProgram>
+    <StartArguments />
+    <StartWorkingDirectory />
   </PropertyGroup>
 </Project>

@@ -14,3 +14,19 @@ C:\Code\tilda_1\obj\x86\Debug\TILDA.pdb
 C:\Code\tilda_1\obj\x86\Debug\TILDA.csprojResolveAssemblyReference.cache
 C:\Code\tilda_1\obj\x86\Debug\Properties.Resources.resources
 C:\Code\tilda_1\obj\x86\Debug\TILDA.csproj.GenerateResource.Cache
+D:\CTMueller\Digital Structures\Code\tilda_1\bin\Debug\TILDA.dll
+D:\CTMueller\Digital Structures\Code\tilda_1\bin\Debug\TILDA.pdb
+D:\CTMueller\Digital Structures\Code\tilda_1\bin\Debug\AlgLib.dll
+D:\CTMueller\Digital Structures\Code\tilda_1\bin\Debug\DSECommon.dll
+D:\CTMueller\Digital Structures\Code\tilda_1\bin\Debug\MathNet.Numerics.dll
+D:\CTMueller\Digital Structures\Code\tilda_1\bin\Debug\netDxf.dll
+D:\CTMueller\Digital Structures\Code\tilda_1\bin\Debug\StructureEngineCS.dll
+D:\CTMueller\Digital Structures\Code\tilda_1\bin\Debug\zlib.net.dll
+D:\CTMueller\Digital Structures\Code\tilda_1\bin\Debug\DSECommon.pdb
+D:\CTMueller\Digital Structures\Code\tilda_1\bin\Debug\netDxf.xml
+D:\CTMueller\Digital Structures\Code\tilda_1\obj\x86\Debug\TILDA.csprojResolveAssemblyReference.cache
+D:\CTMueller\Digital Structures\Code\tilda_1\obj\x86\Debug\Properties.Resources.resources
+D:\CTMueller\Digital Structures\Code\tilda_1\obj\x86\Debug\TILDA.csproj.GenerateResource.Cache
+D:\CTMueller\Digital Structures\Code\tilda_1\obj\x86\Debug\TILDA.dll
+D:\CTMueller\Digital Structures\Code\tilda_1\obj\x86\Debug\TILDA.pdb
+D:\CTMueller\Digital Structures\Code\tilda_1\bin\Debug\StructureEngineCS.pdb

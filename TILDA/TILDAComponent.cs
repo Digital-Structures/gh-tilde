@@ -35,6 +35,9 @@
         public List<GH_NumberSlider> slidersListFeatures;
         public string modelType;
         public double modelParam;
+        public List<string> allModels;
+        public List<double> allParams;
+        public List<double> allErrors;
 
         public TILDAComponent() : base("Tilde", "Tilde", "Surrogate Modeling tool for approximating objective functions", "DSE", "Simplify")
         {
@@ -77,13 +80,14 @@
             pManager.AddNumberParameter("Predict", "P", "Features set to predict a solution", GH_ParamAccess.list);
         }
 
-
-
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
             pManager.AddNumberParameter("Output", "Output", "Predicted value", GH_ParamAccess.item);
             pManager.AddTextParameter("Model Type", "Mod", "Model type selected for surrogate model", GH_ParamAccess.item);
             pManager.AddNumberParameter("Nuisance Parameter", "Param", "Parameter for selected surrogate model", GH_ParamAccess.item);
+            pManager.AddTextParameter("All Models", "Models", "All considered surrogate models", GH_ParamAccess.list);
+            pManager.AddNumberParameter("All Model Parameters", "Params", "Nuisance parameters for all considered surrogate models", GH_ParamAccess.list);
+            pManager.AddNumberParameter("All Model Errors", "Errors", "Validation errors for all considered surrogate models", GH_ParamAccess.list);
         }
 
         protected override void SolveInstance(IGH_DataAccess DA)
@@ -132,15 +136,18 @@
 
                     Observation test = new Observation(features, 0.0);
                     double num4 = this.rr.Model.Predict(test);
-                    
+                    //double num4 = 1.0;
+                                        
                     DA.SetData(0, num4);
                     DA.SetData(1, this.modelType);
                     DA.SetData(2, this.modelParam);
+                    DA.SetDataList(3, this.allModels);
+                    DA.SetDataList(4, this.allParams);
+                    DA.SetDataList(5, this.allErrors);
+                   
                 }
             }
         }
-
-  
 
         public override Guid ComponentGuid
         {
@@ -149,7 +156,6 @@
                 return new Guid("{edb5567c-c83c-40b0-adec-b9385e386653}");
             }
         }
-
 
         protected override Bitmap Icon
         {

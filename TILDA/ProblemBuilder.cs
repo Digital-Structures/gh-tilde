@@ -13,7 +13,7 @@
         private TILDA.TILDAComponent component;
         private SurrogateModelBuilder model;
         private RegCase r;
-        private RegressionReport rr;
+        //private RegressionReport rr;
 
         public ProblemBuilder(TILDA.TILDAComponent component)
         {
@@ -29,45 +29,82 @@
 
         public void Start()
         {
-            int num5;
-            List<double> list2;
-            int num6;
-            Observation observation;
+            //int num5;
+            //List<double> list2;
+            //int num6;
+            //Observation observation;
             MessageBox.Show("Starting...");
             this.model = new SurrogateModelBuilder();
             double ratio = this.component.ratio;
-            int num2 = (int) Math.Round((double) (this.component.designMap.Count * ratio), 0);
-            int num3 = this.component.designMap.Count - num2;
+            int numData = this.component.designMap.Count;
+            int numTrain = (int)Math.Round(numData * ratio);
+            int numVal = numData - numTrain;
+            int numVars = this.component.numVariables;
+
             List<Observation> trainSet = new List<Observation>();
-            int num4 = 0;
-            for (num5 = 0; num5 < num2; num5++)
+            for (int i = 0; i < numTrain; i++)
             {
-                list2 = new List<double>();
-                num6 = 0;
-                while (num6 < this.component.numVariables)
+                List<double> features = new List<double>();
+                for (int j = 0; j < numVars; j++)
                 {
-                    list2.Add(this.component.designMap[num5][num6]);
-                    num4++;
-                    num6++;
+                    features.Add(this.component.designMap[i][j]);
                 }
-                observation = new Observation(list2, this.component.designMap[num5][this.component.numVariables]);
-                trainSet.Add(observation);
+                Observation obs = new Observation(features, this.component.designMap[i][numVars]);
+                trainSet.Add(obs);
             }
+
             List<Observation> valSet = new List<Observation>();
-            for (num5 = num4; num5 < this.component.designMap.Count; num5++)
+            for (int i = numTrain; i < numData; i++)
             {
-                list2 = new List<double>();
-                for (num6 = 0; num6 < this.component.numVariables; num6++)
+                List<double> features = new List<double>();
+                for (int j = 0; j < numVars; j++)
                 {
-                    list2.Add(this.component.designMap[num5][num6]);
+                    features.Add(this.component.designMap[i][j]);
                 }
-                observation = new Observation(list2, this.component.designMap[num5][this.component.numVariables]);
-                valSet.Add(observation);
+                Observation obs = new Observation(features, this.component.designMap[i][numVars]);
+                valSet.Add(obs);
             }
+
+            //// NOTE: REPLACING ALL OF THE FOLLOWING CODE WHICH DOES NOT SPLIT DATA INTO TRAINING AND VALIDATION CORRECTLY
+            //int num2 = (int) Math.Round((double) (this.component.designMap.Count * ratio), 0);
+            //int num3 = this.component.designMap.Count - num2;
+            //List<Observation> trainSet = new List<Observation>();
+            //int num4 = 0;
+            //for (num5 = 0; num5 < num2; num5++)
+            //{
+            //    list2 = new List<double>();
+            //    num6 = 0;
+            //    while (num6 < this.component.numVariables)
+            //    {
+            //        list2.Add(this.component.designMap[num5][num6]);
+            //        num4++;
+            //        num6++;
+            //    }
+            //    observation = new Observation(list2, this.component.designMap[num5][this.component.numVariables]);
+            //    trainSet.Add(observation);
+            //}
+            //List<Observation> valSet = new List<Observation>();
+            //for (num5 = num4; num5 < this.component.designMap.Count; num5++)
+            //{
+            //    list2 = new List<double>();
+            //    for (num6 = 0; num6 < this.component.numVariables; num6++)
+            //    {
+            //        list2.Add(this.component.designMap[num5][num6]);
+            //    }
+            //    observation = new Observation(list2, this.component.designMap[num5][this.component.numVariables]);
+            //    valSet.Add(observation);
+            //}
+
+
             Matrix<double> w = new DenseMatrix(1, 6, new double[] { 0.0, 0.0, 1.0, 1.0, 1.0, 1.0 });
-            this.r = new RegCase(true, true, true, w, null);
+            this.r = new RegCase(valSet.Count, true, true, true, w, null);
             MessageBox.Show("Building Model: A message will appear when is finished");
-            this.component.rr = this.model.BuildModel(this.r, trainSet, valSet);
+            List<Observation> testSet = new List<Observation>();
+            foreach(Observation o in valSet)
+            {
+                testSet.Add(o.ObservationClone());
+            }
+            this.component.rr = this.model.BuildModel(this.r, trainSet, valSet, testSet);
             MessageBox.Show("Finished: Model built");
             this.component.modelCreated = true;
 
@@ -87,6 +124,34 @@
 
             this.component.modelParam = (double) this.component.rr.Model.Parameter;
 
+            List<ValidationResult> results = this.model.BuildResults;
+
+            List<string> allModels = new List<string>();
+            List<double> allParams = new List<double>();
+            List<double> compositeErrors = new List<double>();
+            foreach (ValidationResult r in results)
+            {
+                string modelName = "";
+                Regression reg = r.Model;
+                if (reg is EnsembleNeuralNetRegression)
+                {
+                    modelName = "Ensemble Neural Net";
+                }
+                else if (reg is RandomForestRegression)
+                {
+                    modelName = "Random Forest";
+                }
+                else if (reg is KrigingRegression)
+                {
+                    modelName = "Kriging";
+                }
+                allModels.Add(modelName);
+                allParams.Add(r.Parameter);
+                compositeErrors.Add(r.Error.CompositeAbsoluteError);
+            }
+            this.component.allModels = allModels;
+            this.component.allParams = allParams;
+            this.component.allErrors = compositeErrors;
         }
     }
 }
