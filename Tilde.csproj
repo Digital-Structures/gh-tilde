@@ -79,7 +79,7 @@
     <None Include="Resources\Tilde.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Code\PhD\DesignTool\StructureEngine.csproj">
+    <ProjectReference Include="..\structure-engine-cs\StructureEngine.csproj">
       <Project>{a5b0a166-35ff-4aff-8a85-c6beb305aa83}</Project>
       <Name>StructureEngine</Name>
     </ProjectReference>
