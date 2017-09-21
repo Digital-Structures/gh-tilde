@@ -63,9 +63,9 @@ namespace Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Sampler1 {
+        internal static System.Drawing.Bitmap Tilde {
             get {
-                object obj = ResourceManager.GetObject("Sampler1", resourceCulture);
+                object obj = ResourceManager.GetObject("Tilde", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

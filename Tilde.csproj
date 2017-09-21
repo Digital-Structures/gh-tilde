@@ -34,53 +34,55 @@
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
-    <Reference Include="AlgLib">
-      <HintPath>Dependencies\AlgLib.dll</HintPath>
-    </Reference>
-    <Reference Include="DSECommon">
-      <HintPath>..\gh-design-space-exploration\DSECommon\bin\Debug\DSECommon.dll</HintPath>
-    </Reference>
-    <Reference Include="GH_IO, Version=1.0.0.0, Culture=neutral, PublicKeyToken=6a29997d2e6b4f97, processorArchitecture=MSIL">
+    <Reference Include="DSECommon, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\gh-design-space-exploration\Libraries\Grasshopper\0.9.76.0\x64\GH_IO.dll</HintPath>
+      <HintPath>..\gh-design-space-exploration\Output\DSECommon.dll</HintPath>
+    </Reference>
+    <Reference Include="GH_IO">
+      <HintPath>Libraries\Grasshopper\0.9.76.0\x64\GH_IO.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Grasshopper, Version=1.0.0.20, Culture=neutral, PublicKeyToken=dda4f5ec2cd80803, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\gh-design-space-exploration\Libraries\Grasshopper\0.9.76.0\x64\Grasshopper.dll</HintPath>
+    <Reference Include="Grasshopper">
+      <HintPath>Libraries\Grasshopper\0.9.76.0\x64\Grasshopper.dll</HintPath>
       <Private>False</Private>
+    </Reference>
+    <Reference Include="MathNet.Numerics, Version=0.0.0.0, Culture=neutral, PublicKeyToken=cd8b63ad3d691a37, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Libraries\Math.Net\lib\Net40\MathNet.Numerics.dll</HintPath>
     </Reference>
     <Reference Include="netDxf">
       <HintPath>Dependencies\netDxf.dll</HintPath>
     </Reference>
+    <Reference Include="RhinoCommon">
+      <HintPath>Libraries\Rhino\5.1.3\x64\RhinoCommon.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
-    <Reference Include="MathNet.Numerics">
-      <HintPath>Dependencies\MathNet.Numerics.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
-    <Compile Include="Global.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="TILDA\ProblemBuilder.cs" />
-    <Compile Include="TILDA\Properties\Resources.cs" />
-    <Compile Include="TILDA\TILDAComponent.cs" />
-    <Compile Include="TILDA\TILDAComponentAttributes.cs" />
-    <Compile Include="TILDA\TILDAInfo.cs" />
+    <Compile Include="Tilde\ProblemBuilder.cs" />
+    <Compile Include="Tilde\Properties\Resources.cs" />
+    <Compile Include="Tilde\TildeComponent.cs" />
+    <Compile Include="Tilde\TildeComponentAttributes.cs" />
+    <Compile Include="Tilde\TildeInfo.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="TILDA.Properties.Resources.resources" />
-    <Reference Include="zlib.net">
-      <HintPath>Dependencies\zlib.net.dll</HintPath>
+    <EmbeddedResource Include="Tilde.Properties.Resources.resources" />
+    <Reference Include="zlib.net, Version=1.0.3.0, Culture=neutral, PublicKeyToken=47d7877cb3620160">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Libraries\MathNet.Numerics\lib\Net40\zlib.net.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Sampler1.png" />
+    <None Include="Resources\Tilde.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\Code\PhD\DesignTool\StructureEngine.csproj">

@@ -1,4 +1,4 @@
-﻿namespace TILDA
+﻿namespace Tilde
 {
     using Grasshopper.Kernel;
     using Grasshopper.Kernel.Data;
@@ -17,7 +17,7 @@
     using Grasshopper.Kernel.Types;
 
 
-    public class TILDAComponent : GH_Component
+    public class TildeComponent : GH_Component
     {
         public List<List<double>> designMap;
         public GH_Structure<GH_Number> designs;
@@ -39,7 +39,7 @@
         public List<double> allParams;
         public List<double> allErrors;
 
-        public TILDAComponent() : base("Tilde", "Tilde", "Surrogate Modeling tool for approximating objective functions", "DSE", "Simplify")
+        public TildeComponent() : base("Tilde", "Tilde", "Surrogate Modeling tool for approximating objective functions", "DSE", "Simplify")
         {
             this.slidersListFeatures = new List<GH_NumberSlider>();
             this.VarsList = new List<DSEVariable>();
@@ -51,7 +51,7 @@
 
         public override void CreateAttributes()
         {
-            base.m_attributes = new TILDA.TILDAComponentAttributes(this);
+            base.m_attributes = new TildeComponentAttributes(this);
         }
 
         private void readSlidersList()
@@ -161,7 +161,9 @@
         {
             get
             {
-                return TILDA.Properties.Resources.ttilda;
+                // You can add image files to your project resources and access them like this:
+                //return Resources.IconForThisComponent;
+                return Properties.Resources.Tilde;
             }
         }
     }

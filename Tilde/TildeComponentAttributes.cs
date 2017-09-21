@@ -1,16 +1,16 @@
-﻿namespace TILDA
+﻿namespace Tilde
 {
     using Grasshopper.Kernel;
     using Grasshopper.Kernel.Attributes;
     using System;
 
-    internal class TILDAComponentAttributes : GH_ComponentAttributes
+    internal class TildeComponentAttributes : GH_ComponentAttributes
     {
-        private TILDA.TILDAComponent MyComponent;
+        private TildeComponent MyComponent;
 
-        public TILDAComponentAttributes(IGH_Component component) : base(component)
+        public TildeComponentAttributes(IGH_Component component) : base(component)
         {
-            this.MyComponent = (TILDAComponent) component;
+            this.MyComponent = (TildeComponent) component;
         }
 
 

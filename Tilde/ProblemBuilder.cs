@@ -1,4 +1,4 @@
-﻿namespace TILDA
+﻿namespace Tilde
 {
     using MathNet.Numerics.LinearAlgebra.Double;
     using MathNet.Numerics.LinearAlgebra.Generic;
@@ -10,12 +10,12 @@
 
     internal class ProblemBuilder
     {
-        private TILDA.TILDAComponent component;
+        private TildeComponent component;
         private SurrogateModelBuilder model;
         private RegCase r;
         //private RegressionReport rr;
 
-        public ProblemBuilder(TILDA.TILDAComponent component)
+        public ProblemBuilder(TildeComponent component)
         {
             this.component = component;
             component.model = this.model;

@@ -8,6 +8,27 @@ Desktop.ini
 # Recycle Bin used on file shares
 $RECYCLE.BIN/
 
+# User-specific files
+*.suo
+*.userosscache
+*.sln.docstates
+
+# User-specific files (MonoDevelop/Xamarin Studio)
+*.userprefs
+
+# Build results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+bld/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+
+
 # Windows Installer files
 *.cab
 *.msi
@@ -46,3 +67,4 @@ Network Trash Folder
 Temporary Items
 .apdisk
 *.suo
+bin/Debug/StructureEngineCS.pdb

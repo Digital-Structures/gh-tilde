@@ -1,10 +1,10 @@
-﻿namespace TILDA
+﻿namespace Tilde
 {
     using Grasshopper.Kernel;
     using System;
     using System.Drawing;
 
-    public class TILDAInfo : GH_AssemblyInfo
+    public class TildeInfo : GH_AssemblyInfo
     {
         public override string AuthorContact
         {
@@ -50,7 +50,7 @@
         {
             get
             {
-                return "TILDA";
+                return "Tilde";
             }
         }
     }

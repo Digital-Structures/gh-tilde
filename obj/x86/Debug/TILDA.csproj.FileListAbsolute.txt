@@ -30,3 +30,10 @@ D:\CTMueller\Digital Structures\Code\tilda_1\obj\x86\Debug\TILDA.csproj.Generate
 D:\CTMueller\Digital Structures\Code\tilda_1\obj\x86\Debug\TILDA.dll
 D:\CTMueller\Digital Structures\Code\tilda_1\obj\x86\Debug\TILDA.pdb
 D:\CTMueller\Digital Structures\Code\tilda_1\bin\Debug\StructureEngineCS.pdb
+D:\CTMueller\Digital Structures\Code\tilda_1\bin\Debug\GH_IO.dll
+D:\CTMueller\Digital Structures\Code\tilda_1\bin\Debug\Grasshopper.dll
+D:\CTMueller\Digital Structures\Code\tilda_1\bin\Debug\RhinoCommon.dll
+D:\CTMueller\Digital Structures\Code\tilda_1\bin\Debug\GH_IO.xml
+D:\CTMueller\Digital Structures\Code\tilda_1\bin\Debug\Grasshopper.xml
+D:\CTMueller\Digital Structures\Code\tilda_1\bin\Debug\MathNet.Numerics.xml
+D:\CTMueller\Digital Structures\Code\tilda_1\bin\Debug\RhinoCommon.xml
