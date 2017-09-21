@@ -68,3 +68,5 @@ Temporary Items
 .apdisk
 *.suo
 bin/Debug/StructureEngineCS.pdb
+obj/x86/Debug/DesignTimeResolveAssemblyReferencesInput.cache
+*.cache
