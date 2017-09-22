@@ -6,6 +6,6 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
     <StartAction>Program</StartAction>
-    <StartProgram>%24%28RHINO%29</StartProgram>
+    <StartProgram>C:\Program Files\Rhinoceros 5 %2864-bit%29\System\Rhino.exe</StartProgram>
   </PropertyGroup>
 </Project>

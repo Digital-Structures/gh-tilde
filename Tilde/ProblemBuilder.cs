@@ -29,9 +29,7 @@
 
         public void Start()
         {
-            //int num5;
-            //List<double> list2;
-            //int num6;
+           
             //Observation observation;
             MessageBox.Show("Starting...");
             this.model = new SurrogateModelBuilder();
@@ -41,6 +39,7 @@
             int numVal = numData - numTrain;
             int numVars = this.component.numVariables;
 
+            // Split data into training and validation
             List<Observation> trainSet = new List<Observation>();
             for (int i = 0; i < numTrain; i++)
             {
@@ -65,7 +64,7 @@
                 valSet.Add(obs);
             }
 
-            //// NOTE: REPLACING ALL OF THE FOLLOWING CODE WHICH DOES NOT SPLIT DATA INTO TRAINING AND VALIDATION CORRECTLY
+            //// NOTE: REPLACING ALL OF THE FOLLOWING CODE, WHICH DOES NOT SPLIT DATA INTO TRAINING AND VALIDATION CORRECTLY
             //int num2 = (int) Math.Round((double) (this.component.designMap.Count * ratio), 0);
             //int num3 = this.component.designMap.Count - num2;
             //List<Observation> trainSet = new List<Observation>();
@@ -95,10 +94,11 @@
             //    valSet.Add(observation);
             //}
 
-
-            Matrix<double> w = new DenseMatrix(1, 6, new double[] { 0.0, 0.0, 1.0, 1.0, 1.0, 1.0 });
+            // Choose error metrics and model types to consider
+            // Currently only using RMSE
+            Matrix<double> w = new DenseMatrix(1, 6, new double[] { 1.0, 0.0, 0.0, 0.0, 0.0, 0.0 });
             this.r = new RegCase(valSet.Count, true, true, true, w, null);
-            MessageBox.Show("Building Model: A message will appear when is finished");
+            MessageBox.Show("Building Model: A message will appear when finished");
             List<Observation> testSet = new List<Observation>();
             foreach(Observation o in valSet)
             {
@@ -108,7 +108,7 @@
             MessageBox.Show("Finished: Model built");
             this.component.modelCreated = true;
 
-       
+            // Track model type
             if (this.component.rr.Model is EnsembleNeuralNetRegression)
             {
                 this.component.modelType = "Ensemble Neural Net";
@@ -149,6 +149,8 @@
                 allParams.Add(r.Parameter);
                 compositeErrors.Add(r.Error.CompositeAbsoluteError);
             }
+
+            // Set lists of models, parameters, and errors for output
             this.component.allModels = allModels;
             this.component.allParams = allParams;
             this.component.allErrors = compositeErrors;

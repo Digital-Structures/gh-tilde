@@ -43,6 +43,7 @@
     </Reference>
     <Reference Include="Grasshopper">
       <HintPath>Dependencies\Grasshopper.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="MathNet.Numerics, Version=0.0.0.0, Culture=neutral, PublicKeyToken=cd8b63ad3d691a37, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -50,6 +51,7 @@
     </Reference>
     <Reference Include="RhinoCommon">
       <HintPath>Dependencies\RhinoCommon.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
@@ -85,7 +87,7 @@
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
-    <PostBuildEvent>MOVE /Y "$(TargetPath)" "$(TargetDir)$(ProjectName).gha" &amp;&amp; XCOPY /Y /F "$(TargetDir)*" "$(ProjectDir)..\Output\"</PostBuildEvent>
+    <PostBuildEvent>MOVE /Y "$(TargetPath)" "$(TargetDir)$(ProjectName).gha" &amp;&amp; XCOPY /Y /F "$(TargetDir)*" "$(ProjectDir)..\gh-tilde\Output\"</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <StartAction>Program</StartAction>

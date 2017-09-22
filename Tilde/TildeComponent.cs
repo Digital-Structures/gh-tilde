@@ -39,7 +39,7 @@
         public List<double> allParams;
         public List<double> allErrors;
 
-        public TildeComponent() : base("Tilde", "Tilde", "Surrogate Modeling tool for approximating objective functions", "DSE", "Simplify")
+        public TildeComponent() : base("Tilde", "Tilde", "Surrogate modeling tool for approximating objective functions", "DSE", "Simplify")
         {
             this.slidersListFeatures = new List<GH_NumberSlider>();
             this.VarsList = new List<DSEVariable>();
@@ -74,20 +74,23 @@
                 true,
                 true
             };
-            pManager.AddNumberParameter("Design Map", "DM", "Collection of values of features in a design space", GH_ParamAccess.tree);
+
+            // Register inputs
+            pManager.AddNumberParameter("Design Map + Objectives", "DM+O", "Design vectors and their simulated objective values", GH_ParamAccess.tree);
             pManager.AddIntegerParameter("Number of Variables", "N", "Number of Variables on Design Map", GH_ParamAccess.item);
             pManager.AddNumberParameter("Training/Validation Ratio", "Ratio", "Ratio between Training and Validation data from Design Map data", 0, 0.5);
-            pManager.AddNumberParameter("Predict", "P", "Features set to predict a solution", GH_ParamAccess.list);
+            pManager.AddNumberParameter("Variables", "Var", "Variables used for the prediction", GH_ParamAccess.list);
         }
 
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddNumberParameter("Output", "Output", "Predicted value", GH_ParamAccess.item);
-            pManager.AddTextParameter("Model Type", "Mod", "Model type selected for surrogate model", GH_ParamAccess.item);
+            // Register outputs
+            pManager.AddNumberParameter("Prediction", "P", "Predicted value", GH_ParamAccess.item);
+            pManager.AddTextParameter("Model Type", "Model", "Model type selected for surrogate model", GH_ParamAccess.item);
             pManager.AddNumberParameter("Nuisance Parameter", "Param", "Parameter for selected surrogate model", GH_ParamAccess.item);
-            pManager.AddTextParameter("All Models", "Models", "All considered surrogate models", GH_ParamAccess.list);
-            pManager.AddNumberParameter("All Model Parameters", "Params", "Nuisance parameters for all considered surrogate models", GH_ParamAccess.list);
-            pManager.AddNumberParameter("All Model Errors", "Errors", "Validation errors for all considered surrogate models", GH_ParamAccess.list);
+            pManager.AddTextParameter("Test Models", "TModels", "All considered surrogate models", GH_ParamAccess.list);
+            pManager.AddNumberParameter("Test Model Parameters", "TParams", "Nuisance parameters for all considered surrogate models", GH_ParamAccess.list);
+            pManager.AddNumberParameter("Test Model Errors", "Errors", "Validation errors for all considered surrogate models", GH_ParamAccess.list);
         }
 
         protected override void SolveInstance(IGH_DataAccess DA)
@@ -114,9 +117,11 @@
                     }
                     this.designMap.Add(item);
                 }
+
+                // Show warning messages
                 if (this.designs.Branches.Count < 1)
                 {
-                    this.AddRuntimeMessage((GH_RuntimeMessageLevel) 20, "Insuficient data provided");
+                    this.AddRuntimeMessage((GH_RuntimeMessageLevel) 20, "Insufficient data provided");
                 }
                 if ((this.numVariables > this.designs.Branches[0].Count) || (this.numVariables < 1))
                 {
@@ -124,7 +129,7 @@
                 }
                 else if (!this.modelCreated)
                 {
-                    this.AddRuntimeMessage((GH_RuntimeMessageLevel) 20, "Model Not created, please doubleclick");
+                    this.AddRuntimeMessage((GH_RuntimeMessageLevel) 20, "Model not yet created, please doubleclick");
                 }
                 else
                 {
@@ -134,10 +139,12 @@
                         features.Add(this.listPredict[num]);
                     }
 
+                    // Find predicted value for current variables
                     Observation test = new Observation(features, 0.0);
                     double num4 = this.rr.Model.Predict(test);
-                    //double num4 = 1.0;
-                                        
+                    //double num4 = 1.0; for testing
+                              
+                    // Set outputs          
                     DA.SetData(0, num4);
                     DA.SetData(1, this.modelType);
                     DA.SetData(2, this.modelParam);
