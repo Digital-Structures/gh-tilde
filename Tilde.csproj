@@ -6,7 +6,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{99493741-F3E3-452E-9626-9192440E80E0}</ProjectGuid>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <AssemblyName>TILDA</AssemblyName>
+    <AssemblyName>Tilde</AssemblyName>
     <OutputType>Library</OutputType>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <TargetFrameworkProfile />
@@ -32,6 +32,9 @@
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
+  <PropertyGroup>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+  </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <Reference Include="DSECommon, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -44,10 +47,6 @@
     <Reference Include="Grasshopper">
       <HintPath>Dependencies\Grasshopper.dll</HintPath>
       <Private>False</Private>
-    </Reference>
-    <Reference Include="MathNet.Numerics, Version=0.0.0.0, Culture=neutral, PublicKeyToken=cd8b63ad3d691a37, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>Libraries\Math.Net\lib\Net40\MathNet.Numerics.dll</HintPath>
     </Reference>
     <Reference Include="RhinoCommon">
       <HintPath>Dependencies\RhinoCommon.dll</HintPath>
@@ -81,13 +80,17 @@
     <None Include="Resources\Tilde.png" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\structure-engine-cs\Libraries\MathNet.Numerics\src\Numerics\MathNet.Numerics.csproj">
+      <Project>{b7cae5f4-a23f-4438-b5be-41226618b695}</Project>
+      <Name>MathNet.Numerics</Name>
+    </ProjectReference>
     <ProjectReference Include="..\structure-engine-cs\StructureEngine.csproj">
       <Project>{a5b0a166-35ff-4aff-8a85-c6beb305aa83}</Project>
       <Name>StructureEngine</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
-    <PostBuildEvent>MOVE /Y "$(TargetPath)" "$(TargetDir)$(ProjectName).gha" &amp;&amp; XCOPY /Y /F "$(TargetDir)*" "$(ProjectDir)..\gh-tilde\Output\"</PostBuildEvent>
+    <PostBuildEvent>MOVE /Y "$(TargetPath)" "$(TargetDir)$(ProjectName).gha" &amp;&amp; XCOPY /Y /F "$(TargetDir)*" "$(ProjectDir)..\Output\"</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <StartAction>Program</StartAction>
