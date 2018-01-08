@@ -31,7 +31,7 @@
         {
            
             //Observation observation;
-            MessageBox.Show("Starting...");
+            //MessageBox.Show("Starting...");
             this.model = new SurrogateModelBuilder();
             double ratio = this.component.ratio;
             int numData = this.component.designMap.Count;

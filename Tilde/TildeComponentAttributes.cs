@@ -13,6 +13,7 @@
             this.MyComponent = (TildeComponent) component;
         }
 
+        //NOTE: All obsolete with change to run on button
 
         [STAThread]
         public override Grasshopper.GUI.Canvas.GH_ObjectResponse RespondToMouseDoubleClick(Grasshopper.GUI.Canvas.GH_Canvas sender, Grasshopper.GUI.GH_CanvasMouseEvent e)
