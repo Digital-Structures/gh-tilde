@@ -49,11 +49,6 @@
             this.pb = new ProgressBar();
         }
 
-        public override void CreateAttributes()
-        {
-            base.m_attributes = new TildeComponentAttributes(this);
-        }
-
         private void readSlidersList()
         {
             this.VarsList.Clear();
@@ -80,6 +75,7 @@
             pManager.AddIntegerParameter("Number of Variables", "N", "Number of Variables on Design Map", GH_ParamAccess.item);
             pManager.AddNumberParameter("Training/Validation Ratio", "Ratio", "Ratio between Training and Validation data from Design Map data", 0, 0.5);
             pManager.AddNumberParameter("Variables", "Var", "Variables used for the prediction", GH_ParamAccess.list);
+            pManager.AddBooleanParameter("Build", "Build", "Create the surrogate model", GH_ParamAccess.item);
         }
 
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
@@ -101,6 +97,17 @@
             this.listPredict = new List<double>();
             if ((DA.GetDataTree<GH_Number>(0, out this.designs) && DA.GetData<int>(1, ref this.numVariables)) && (DA.GetData<double>(2, ref this.ratio) && DA.GetDataList<double>(3, this.listPredict)))
             {
+
+
+                // Create model on TOGGLE
+                if (Run(DA, 4))
+                {
+                    this.modelType = "Test";
+                    this.buildModel();
+                    this.modelCreated = true;  
+                }
+
+                
                 int num;
                 this.pb.Width = 200;
                 this.pb.Height = 50;
@@ -118,6 +125,7 @@
                     this.designMap.Add(item);
                 }
 
+
                 // Show warning messages
                 if (this.designs.Branches.Count < 1)
                 {
@@ -129,10 +137,17 @@
                 }
                 else if (!this.modelCreated)
                 {
-                    this.AddRuntimeMessage((GH_RuntimeMessageLevel) 20, "Model not yet created, please doubleclick");
+                    this.AddRuntimeMessage((GH_RuntimeMessageLevel) 20, "Model not yet created");
                 }
                 else
+                { 
+                   
+                }
+
+                if (modelCreated)
+
                 {
+
                     List<double> features = new List<double>();
                     for (num = 0; num < this.listPredict.Count; num++)
                     {
@@ -143,7 +158,7 @@
                     Observation test = new Observation(features, 0.0);
                     double num4 = this.rr.Model.Predict(test);
                     //double num4 = 1.0; for testing
-                              
+
                     // Set outputs          
                     DA.SetData(0, num4);
                     DA.SetData(1, this.modelType);
@@ -151,9 +166,25 @@
                     DA.SetDataList(3, this.allModels);
                     DA.SetDataList(4, this.allParams);
                     DA.SetDataList(5, this.allErrors);
-                   
+
                 }
+
+
+
             }
+        }
+
+        private void buildModel()
+        {
+            ProblemBuilder pb = new ProblemBuilder(this);
+            pb.Start();
+        }
+
+        public static bool Run(Grasshopper.Kernel.IGH_DataAccess DA, int index)
+        {
+            bool run = false;
+            DA.GetData<bool>(index, ref run);
+            return run;
         }
 
         public override Guid ComponentGuid
