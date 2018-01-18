@@ -48,6 +48,9 @@
       <HintPath>Dependencies\Grasshopper.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="MathNet2.Numerics">
+      <HintPath>Dependencies\MathNet2.Numerics.dll</HintPath>
+    </Reference>
     <Reference Include="RhinoCommon">
       <HintPath>Dependencies\RhinoCommon.dll</HintPath>
       <Private>False</Private>
@@ -77,13 +80,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="packages.config" />
     <None Include="Resources\Tilde.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\structure-engine-cs\Libraries\MathNet.Numerics\src\Numerics\MathNet.Numerics.csproj">
-      <Project>{b7cae5f4-a23f-4438-b5be-41226618b695}</Project>
-      <Name>MathNet.Numerics</Name>
-    </ProjectReference>
     <ProjectReference Include="..\structure-engine-cs\StructureEngine.csproj">
       <Project>{a5b0a166-35ff-4aff-8a85-c6beb305aa83}</Project>
       <Name>StructureEngine</Name>

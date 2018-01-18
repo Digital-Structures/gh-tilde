@@ -1,7 +1,7 @@
 ﻿namespace Tilde
 {
-    using MathNet.Numerics.LinearAlgebra.Double;
-    using MathNet.Numerics.LinearAlgebra.Generic;
+    using MathNet2.Numerics.LinearAlgebra.Double;
+    using MathNet2.Numerics.LinearAlgebra.Generic;
     using StructureEngine.MachineLearning;
     using StructureEngine.MachineLearning.Testing;
     using System;
@@ -117,10 +117,10 @@
             {
                 this.component.modelType = "Random Forest";
             }
-            else if (this.component.rr.Model is KrigingRegression)
-            {
-                this.component.modelType = "Kriging";
-            }
+            //else if (this.component.rr.Model is KrigingRegression)
+            //{
+            //    this.component.modelType = "Kriging";
+            //}
 
             this.component.modelParam = (double) this.component.rr.Model.Parameter;
 
@@ -141,10 +141,10 @@
                 {
                     modelName = "Random Forest";
                 }
-                else if (reg is KrigingRegression)
-                {
-                    modelName = "Kriging";
-                }
+                //else if (reg is KrigingRegression)
+                //{
+                //    modelName = "Kriging";
+                //}
                 allModels.Add(modelName);
                 allParams.Add(r.Parameter);
                 compositeErrors.Add(r.Error.CompositeAbsoluteError);
