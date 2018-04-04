@@ -31,13 +31,15 @@
         public int numVariables;
         private ProgressBar pb;
         public double ratio;
-        public RegressionReport rr;
+        public List<RegressionReport> rr = new List<RegressionReport>();
         public List<GH_NumberSlider> slidersListFeatures;
         public string modelType;
         public double modelParam;
+        public List<double> Predictions;
         public List<string> allModels;
         public List<double> allParams;
         public List<double> allErrors;
+        public int numObj;
 
         public TildeComponent() : base("Tilde", "Tilde", "Surrogate modeling tool for approximating objective functions", "DSE", "Simplify")
         {
@@ -81,7 +83,7 @@
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
             // Register outputs
-            pManager.AddNumberParameter("Prediction", "P", "Predicted value", GH_ParamAccess.item);
+            pManager.AddNumberParameter("Prediction", "P", "Predicted value", GH_ParamAccess.list);
             pManager.AddTextParameter("Model Type", "Model", "Model type selected for surrogate model", GH_ParamAccess.item);
             pManager.AddNumberParameter("Nuisance Parameter", "Param", "Parameter for selected surrogate model", GH_ParamAccess.item);
             pManager.AddTextParameter("Test Models", "TModels", "All considered surrogate models", GH_ParamAccess.list);
@@ -125,6 +127,7 @@
                     this.designMap.Add(item);
                 }
 
+                numObj = designMap[0].Count() - numVariables;
 
                 // Show warning messages
                 if (this.designs.Branches.Count < 1)
@@ -154,13 +157,20 @@
                         features.Add(this.listPredict[num]);
                     }
 
-                    // Find predicted value for current variables
-                    Observation test = new Observation(features, 0.0);
-                    double num4 = this.rr.Model.Predict(test);
-                    //double num4 = 1.0; for testing
+
+                    Predictions = new List<double>();
+        Observation test = new Observation(features, 0.0);
+
+                    for (int i = 0; i < numObj; i++)
+                    {
+                        // Find predicted value for current variables
+                        Predictions.Add(this.rr[i].Model.Predict(test));
+                        //double num4 = 1.0; for testing
+                    }
+
 
                     // Set outputs          
-                    DA.SetData(0, num4);
+                    DA.SetDataList(0, this.Predictions);
                     DA.SetData(1, this.modelType);
                     DA.SetData(2, this.modelParam);
                     DA.SetDataList(3, this.allModels);
