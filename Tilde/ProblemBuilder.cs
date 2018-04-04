@@ -124,18 +124,18 @@
                 // Track model type
                 if (this.component.rr[k].Model is EnsembleNeuralNetRegression)
                 {
-                    this.component.modelType = "Ensemble Neural Net";
+                    this.component.modelType.Add("Ensemble Neural Net");
                 }
                 else if (this.component.rr[k].Model is RandomForestRegression)
                 {
-                    this.component.modelType = "Random Forest";
+                    this.component.modelType.Add("Random Forest");
                 }
                 //else if (this.component.rr.Model is KrigingRegression)
                 //{
                 //    this.component.modelType = "Kriging";
                 //}
 
-                this.component.modelParam = (double)this.component.rr[k].Model.Parameter;
+                this.component.modelParam.Add((double)this.component.rr[k].Model.Parameter);
 
                 List<ValidationResult> results = this.model.BuildResults;
 
@@ -164,9 +164,9 @@
                 }
 
                 // Set lists of models, parameters, and errors for output
-                this.component.allModels = allModels;
-                this.component.allParams = allParams;
-                this.component.allErrors = compositeErrors;
+                this.component.allModels.Add(allModels);
+                this.component.allParams.Add(allParams);
+                this.component.allErrors.Add(compositeErrors);
             }
 
             MessageBox.Show("Finished: Model(s) built");

@@ -33,12 +33,12 @@
         public double ratio;
         public List<RegressionReport> rr = new List<RegressionReport>();
         public List<GH_NumberSlider> slidersListFeatures;
-        public string modelType;
-        public double modelParam;
+        public List<string> modelType;
+        public List<double> modelParam;
         public List<double> Predictions;
-        public List<string> allModels;
-        public List<double> allParams;
-        public List<double> allErrors;
+        public List<List<string>> allModels;
+        public List<List<double>> allParams;
+        public List<List<double>> allErrors;
         public int numObj;
 
         public TildeComponent() : base("Tilde", "Tilde", "Surrogate modeling tool for approximating objective functions", "DSE", "Simplify")
@@ -49,6 +49,15 @@
             this.modelCreated = false;
             this.ratio = 0.5;
             this.pb = new ProgressBar();
+
+            this.modelType = new List<string>();
+            this.modelParam = new List<double>();
+
+            this.allModels = new List<List<string>>();
+            this.allParams = new List<List<double>>();
+            this.allErrors = new List<List<double>>();
+
+
         }
 
         private void readSlidersList()
@@ -84,11 +93,11 @@
         {
             // Register outputs
             pManager.AddNumberParameter("Prediction", "P", "Predicted value", GH_ParamAccess.list);
-            pManager.AddTextParameter("Model Type", "Model", "Model type selected for surrogate model", GH_ParamAccess.item);
-            pManager.AddNumberParameter("Nuisance Parameter", "Param", "Parameter for selected surrogate model", GH_ParamAccess.item);
-            pManager.AddTextParameter("Test Models", "TModels", "All considered surrogate models", GH_ParamAccess.list);
-            pManager.AddNumberParameter("Test Model Parameters", "TParams", "Nuisance parameters for all considered surrogate models", GH_ParamAccess.list);
-            pManager.AddNumberParameter("Test Model Errors", "Errors", "Validation errors for all considered surrogate models", GH_ParamAccess.list);
+            pManager.AddTextParameter("Model Type", "Model", "Model type selected for surrogate model", GH_ParamAccess.list);
+            pManager.AddNumberParameter("Nuisance Parameter", "Param", "Parameter for selected surrogate model", GH_ParamAccess.list);
+            pManager.AddTextParameter("Test Models", "TModels", "All considered surrogate models", GH_ParamAccess.tree);
+            pManager.AddNumberParameter("Test Model Parameters", "TParams", "Nuisance parameters for all considered surrogate models", GH_ParamAccess.tree);
+            pManager.AddNumberParameter("Test Model Errors", "Errors", "Validation errors for all considered surrogate models", GH_ParamAccess.tree);
         }
 
         protected override void SolveInstance(IGH_DataAccess DA)
@@ -104,7 +113,7 @@
                 // Create model on TOGGLE
                 if (Run(DA, 4))
                 {
-                    this.modelType = "Test";
+                    //this.modelType = "Test";
                     this.buildModel();
                     this.modelCreated = true;  
                 }
@@ -171,11 +180,11 @@
 
                     // Set outputs          
                     DA.SetDataList(0, this.Predictions);
-                    DA.SetData(1, this.modelType);
-                    DA.SetData(2, this.modelParam);
-                    DA.SetDataList(3, this.allModels);
-                    DA.SetDataList(4, this.allParams);
-                    DA.SetDataList(5, this.allErrors);
+                    DA.SetDataList(1, this.modelType);
+                    DA.SetDataList(2, this.modelParam);
+                    DA.SetDataTree(3, ListOfListsToTree(this.allModels));
+                    DA.SetDataTree(4, ListOfListsToTree(this.allParams));
+                    DA.SetDataTree(5, ListOfListsToTree(this.allErrors));
 
                 }
 
@@ -195,6 +204,16 @@
             bool run = false;
             DA.GetData<bool>(index, ref run);
             return run;
+        }
+
+        static DataTree<T> ListOfListsToTree<T>(List<List<T>> listofLists)
+        {
+            DataTree<T> tree = new DataTree<T>();
+            for (int i = 0; i < listofLists.Count; i++)
+            {
+                tree.AddRange(listofLists[i], new GH_Path(i));
+            }
+            return tree;
         }
 
         public override Guid ComponentGuid

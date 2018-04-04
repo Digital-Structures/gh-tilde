@@ -18,7 +18,7 @@
         [STAThread]
         public override Grasshopper.GUI.Canvas.GH_ObjectResponse RespondToMouseDoubleClick(Grasshopper.GUI.Canvas.GH_Canvas sender, Grasshopper.GUI.GH_CanvasMouseEvent e)
         {
-            this.MyComponent.modelType = "Test";
+            //this.MyComponent.modelType = "Test";
             this.buildModel();
             this.MyComponent.modelCreated = true;
             Grasshopper.Instances.ActiveCanvas.Document.NewSolution(true);
